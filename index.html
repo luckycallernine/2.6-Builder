@@ -12,11 +12,9 @@ html,body{height:100%;overflow:hidden}
 body{font-family:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
 button{cursor:pointer;font-family:inherit}
-textarea{font-family:inherit}
-textarea::placeholder{color:#aaa}
-input::placeholder{color:rgba(255,255,255,0.5)}
-
-/* HEADER */
+textarea,input[type=text],input[type=number]{font-family:inherit}
+textarea::placeholder,input::placeholder{color:#aaa}
+.header input::placeholder{color:rgba(255,255,255,0.5)}
 .header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);color:#fff;padding:12px 16px;flex-shrink:0}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .header-left{display:flex;align-items:center;gap:10px}
@@ -32,425 +30,231 @@ input::placeholder{color:rgba(255,255,255,0.5)}
 .progress-track{flex:1;background:rgba(255,255,255,0.2);border-radius:10px;height:6px;overflow:hidden}
 .progress-fill{background:#fff;height:100%;border-radius:10px;transition:width 0.4s ease}
 .progress-text{font-size:12px;font-weight:600;min-width:80px;text-align:right}
-
-/* MENU OVERLAY */
 .menu-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.4);display:none}
 .menu-overlay.open{display:flex}
 .menu-panel{width:300px;max-width:85vw;background:#fff;height:100%;overflow-y:auto;padding:16px;box-shadow:4px 0 20px rgba(0,0,0,0.15)}
 .menu-heading{font-weight:700;font-size:15px;margin-bottom:12px;color:var(--teal)}
 .menu-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;margin-bottom:2px;border:none;border-radius:6px;font-size:13px;transition:all 0.15s;background:transparent}
-.menu-item.active{font-weight:600}
-.menu-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#999;background:#e5e5e5}
-.menu-dot.done{color:#fff}
+.menu-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
 .menu-cat{font-size:10px;font-weight:500;opacity:0.7;margin-left:auto}
-.menu-reset{font-size:12px;color:#dc2626;background:none;border:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;display:block}
-
-/* MAIN CONTENT */
+.menu-reset{font-size:12px;color:#dc2626;background:none;border:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;display:block;cursor:pointer}
 .main{flex:1;overflow-y:auto;padding:16px 16px 130px}
 .section-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .cat-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
 .step-count{font-size:12px;color:var(--text3)}
 .section-title{font-size:22px;font-weight:700;margin-bottom:16px;line-height:1.2}
-
 .guidance-card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:12px;border:1px solid var(--border);line-height:1.6}
 .guidance-label{font-size:12px;font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em}
 .guidance-text{font-size:13.5px;color:#444;white-space:pre-wrap}
-
 .exemplar-toggle{display:flex;align-items:center;gap:6px;background:var(--card);border-radius:8px;padding:8px 14px;margin-bottom:12px;cursor:pointer;width:100%;text-align:left;font-size:13px;font-weight:600;transition:all 0.15s;border-width:1.5px;border-style:solid}
 .exemplar-arrow{transition:transform 0.2s;display:inline-flex}
 .exemplar-arrow.open{transform:rotate(90deg)}
 .exemplar-box{border-radius:var(--radius);padding:14px;margin-bottom:16px;border-left-width:3px;border-left-style:solid;display:none}
 .exemplar-box.open{display:block}
 .exemplar-box pre{margin:0;font-family:inherit;font-size:12.5px;color:#333;white-space:pre-wrap;line-height:1.6}
-
 .grade-tip{background:#fffbeb;border-radius:8px;padding:8px 12px;margin-bottom:16px;border:1px solid #fde68a;font-size:12px;color:#92400e;line-height:1.5}
-
+.maori-box{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-radius:var(--radius);padding:14px;margin-bottom:16px;border:1.5px solid #86efac;border-left:4px solid #22c55e}
+.maori-title{font-size:13px;font-weight:700;color:#15803d;margin-bottom:2px}
+.maori-concept{font-size:15px;font-weight:700;color:#166534;margin-bottom:4px}
+.maori-meaning{font-size:12.5px;color:#3f6212;margin-bottom:8px;font-style:italic}
+.maori-prompt{font-size:12.5px;color:#15803d;margin-bottom:6px;font-weight:600}
 .fields{display:flex;flex-direction:column;gap:14px}
 .field-label{display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:4px}
 .field-textarea{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #ddd;font-size:13.5px;line-height:1.6;resize:vertical;outline:none;background:#fff;transition:border-color 0.15s}
-
+.field-textarea:focus{border-color:var(--teal)}
+.field-input{padding:8px 10px;border-radius:6px;border:1.5px solid #ddd;font-size:13.5px;outline:none;background:#fff;transition:border-color 0.15s;width:100%}
+.field-input:focus{border-color:var(--teal)}
+.fin-section{margin-bottom:18px}
+.fin-section-title{font-size:14px;font-weight:700;color:#333;margin-bottom:8px}
+.fin-table{width:100%;border-collapse:collapse;margin-bottom:8px;background:#fff;border-radius:8px;overflow:hidden;border:1.5px solid #ddd}
+.fin-table th{background:#f5f5f4;padding:8px 10px;text-align:left;font-size:12px;font-weight:600;color:#555;border-bottom:1.5px solid #ddd}
+.fin-table td{padding:4px 6px;border-bottom:1px solid #eee;vertical-align:middle}
+.fin-table input[type=text],.fin-table input[type=number]{border:1px solid transparent;padding:6px 8px;font-size:13px;width:100%;background:transparent;outline:none;border-radius:4px}
+.fin-table input:focus{border-color:var(--teal);background:#fff}
+.fin-table input[type=number]{text-align:right;-moz-appearance:textfield}
+.fin-table input[type=number]::-webkit-outer-spin-button,.fin-table input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.fin-table .total-row td{border-top:2px solid #333;font-weight:700;padding:8px 10px;background:#f9fafb}
+.fin-remove{background:none;border:none;color:#dc2626;font-size:18px;padding:2px 6px;opacity:0.4;cursor:pointer}
+.fin-remove:hover{opacity:1}
+.fin-add{background:none;border:1.5px dashed #ccc;border-radius:6px;padding:6px 12px;font-size:12px;color:#888;width:100%;margin-bottom:8px;transition:all 0.15s}
+.fin-add:hover{border-color:var(--teal);color:var(--teal)}
+.fin-result{background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:12px 14px;margin-top:8px}
+.fin-result-label{font-size:12px;color:#15803d;font-weight:600}
+.fin-result-value{font-size:20px;font-weight:700;color:#166534}
+.fin-row{display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.fin-row label{font-size:13px;font-weight:600;color:#555;min-width:120px}
+.fin-row .fin-auto{font-size:15px;font-weight:700;color:var(--teal)}
+.fin-calc-box{background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:14px;margin-top:12px}
+.fin-calc-row{display:flex;justify-content:space-between;padding:4px 0;font-size:13.5px}
+.fin-calc-row.indent{padding-left:16px;color:#666;font-size:12.5px}
+.fin-calc-row.subtotal{border-top:1.5px solid #333;font-weight:700;padding-top:8px;margin-top:4px}
+.fin-calc-row.total{border-top:2px solid var(--teal);font-weight:700;color:var(--teal);padding-top:8px;margin-top:4px;font-size:15px}
 .complete-btn{display:flex;align-items:center;gap:8px;margin-top:20px;padding:10px 16px;border-radius:8px;border-width:2px;border-style:solid;cursor:pointer;font-size:14px;font-weight:600;width:100%;justify-content:center;transition:all 0.2s}
 .complete-check{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;transition:all 0.2s}
-
-/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e5e5;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;z-index:50;box-shadow:0 -2px 10px rgba(0,0,0,0.05)}
 .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600}
 .nav-prev{border:1.5px solid #ddd;background:#fff;color:var(--text2)}
 .nav-prev:disabled{opacity:0.4;cursor:not-allowed}
 .nav-next{border:none;color:#fff}
 .nav-mid{font-size:12px;color:var(--text3)}
-
-/* ALL-DONE BANNER */
 .all-done{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid #6ee7b7;border-radius:var(--radius);padding:20px;margin-top:20px;text-align:center}
 .all-done h3{color:#065f46;font-size:18px;margin-bottom:6px}
 .all-done p{color:#047857;font-size:13px}
-.all-done button{margin-top:12px;background:#059669;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.all-done button{margin-top:12px;background:#059669;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-// ─── ICONS (SVG strings) ──────────────────────────────────
-const ICO = {
-  menu: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>',
-  chevR: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
-  chevL: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
-  check: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
-  dl: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>',
-};
-
-// ─── CATEGORIES ───────────────────────────────────────────
-const CATS = {
-  overview:   {label:"Overview",         color:"#0d9488", bg:"#ccfbf1"},
-  intro:      {label:"Introduction",     color:"#2563eb", bg:"#dbeafe"},
-  marketing:  {label:"Marketing",        color:"#16a34a", bg:"#dcfce7"},
-  hr:         {label:"Human Resources",  color:"#ea580c", bg:"#ffedd5"},
-  production: {label:"Production",       color:"#7c3aed", bg:"#ede9fe"},
-  finance:    {label:"Finance",          color:"#dc2626", bg:"#fee2e2"},
-};
-
-// ─── SECTIONS ─────────────────────────────────────────────
-const SECTIONS = [
-{id:"lean-canvas",title:"Lean Canvas",cat:"overview",
-guidance:"The Lean Canvas is a one-page snapshot of your entire business idea. Fill in each box with short, clear statements. This helps you see how all the parts of your business connect together.",
-exemplar:`SWEET STREET EXAMPLE:\n\u2022 Problem: People want sweet treats but most are unhealthy\n\u2022 Target Market: Health-conscious consumers aged 22\u201345\n\u2022 Solution: Healthy brownies made from superfoods\n\u2022 Existing Alternatives: Cafes, supermarket health bars, bakeries\n\u2022 UVP: Delicious brownies that are actually good for you \u2014 made from coconut oil, dark chocolate, dates, chia & flaxseed\n\u2022 Sales Channels: Weekend markets, school events\n\u2022 Competitive Advantage: All ingredients are trending superfoods; strong social media presence\n\u2022 Costs: Ingredients ($2.56/pack), market stall fees, packaging, labels\n\u2022 Revenue: Selling packs of 5 brownies at $5.95 each`,
-fields:[
-{id:"problem",label:"Problem",ph:"What problem does your product solve? (1\u20133 problems)"},
-{id:"target-market",label:"Target Market",ph:"Who is most likely to buy your product?"},
-{id:"solution",label:"Solution",ph:"How does your product solve each problem?"},
-{id:"existing-alt",label:"Existing Alternatives",ph:"Who are your main competitors?"},
-{id:"uvp",label:"Unique Value Proposition",ph:"One clear sentence: why should customers buy YOUR product?"},
-{id:"sales-channels",label:"Sales Channels",ph:"How will customers buy your product? (markets, online, school events\u2026)"},
-{id:"competitive-adv",label:"Competitive Advantage",ph:"What do you have that competitors can\u2019t easily copy?"},
-{id:"costs",label:"Costs",ph:"Main variable costs (making the product) and fixed costs (running the business)"},
-{id:"revenue",label:"Revenue Streams",ph:"How will you make money? (product sales, other income\u2026)"},
-],rows:3},
-{id:"business-idea",title:"Business Idea & Community Focus",cat:"intro",
-guidance:"Describe what your product or service is, and explain your community well-being focus. Remember: your business MUST have a community focus \u2014 this means improving social, mental, or physical well-being in your community.",
-exemplar:`SWEET STREET EXAMPLE:\n\nBusiness Idea: Sweet Street produces and sells packs of healthy brownies made from superfoods including coconut oil, dark chocolate, dates, chia seeds, and flaxseed. Each pack contains 5 brownies and is sold at weekend markets and school events in the Wellington region.\n\nCommunity Focus: Sweet Street will donate 25% of net profit to KidsCan, a charity that supports Kiwi kids living in poverty by providing food, clothing, and health products to schools. This aligns with our mission to promote well-being in our community.`,
-fields:[
-{id:"product-desc",label:"Describe your product or service",ph:"What are you selling? What is it made from? How is it packaged? Where will you sell it?"},
-{id:"community-focus",label:"Community well-being focus",ph:"Who or what will you support in your community? How? (e.g. donating a % of profit to a cause)"},
-]},
-{id:"vision-values-goals",title:"Vision, Values & SMART Goals",cat:"intro",
-guidance:"Your mission statement explains WHY your business exists. Your values are the principles your team follows. SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound targets. Include a sales target, a profit target, and a community focus target.",
-exemplar:`SWEET STREET EXAMPLE:\n\nMission: To provide a delicious and healthy snack option while supporting the well-being of Kiwi kids through our partnership with KidsCan.\n\nValues: Health & Well-being, Quality, Community, Sustainability\n\nSMART Goals for Cycle 1:\n\u2022 To sell 50 packs of brownies at the Wellington Underground Market on 26 May 2025\n\u2022 To make $84.50 profit from Cycle 1\n\u2022 To donate $21.13 (25% of net profit) to KidsCan by 1 June 2025`,
-fields:[
-{id:"mission",label:"Vision / Mission Statement",ph:"Why does your business exist? What do you want to achieve?"},
-{id:"values",label:"Company Values",ph:"What principles guide your team? (list 3\u20135 values)"},
-{id:"smart-goals",label:"SMART Goals for Cycle 1",ph:"Write at least 3 SMART goals:\n\u2022 Sales target (how many units, where, by when)\n\u2022 Profit target (how much profit, by when)\n\u2022 Community target (how much donated / impact, by when)"},
-]},
-{id:"swot",title:"SWOT Analysis",cat:"intro",
-guidance:"SWOT = Strengths, Weaknesses, Opportunities, Threats. Strengths and Weaknesses are INTERNAL (about your business). Opportunities and Threats are EXTERNAL (the market/environment).\n\nFor Merit/Excellence: explain HOW each point affects your business.",
-exemplar:`SWEET STREET EXAMPLE:\n\nStrengths: Our brownies use trending superfoods (coconut oil, chia, flaxseed) which will attract health-conscious consumers. Our Production Director works at a gym, giving us access to our target market.\n\nWeaknesses: We have no existing customer base or brand awareness. Limited budget for marketing.\n\nOpportunities: Growing demand for healthy snacking options. Weekend markets have high foot traffic of our target demographic.\n\nThreats: Other food vendors at markets. Customers may not trust a new brand. Weather could reduce market attendance.`,
-fields:[
-{id:"strengths",label:"Strengths (internal \u2014 what you\u2019re good at)",ph:"What advantages does your business have? Skills, resources, product features\u2026"},
-{id:"weaknesses",label:"Weaknesses (internal \u2014 areas to improve)",ph:"What are your limitations? Experience, budget, brand awareness\u2026"},
-{id:"opportunities",label:"Opportunities (external \u2014 what you can use)",ph:"What market trends or events could help your business?"},
-{id:"threats",label:"Threats (external \u2014 what could hurt you)",ph:"What could go wrong? Competition, costs, regulations\u2026"},
-]},
-{id:"timeline",title:"Timeline / Gantt Chart",cat:"intro",
-guidance:"List the key milestones for your business \u2014 when will you complete production, marketing, and sales activities? This shows you have a realistic plan for getting things done on time.",
-exemplar:`SWEET STREET EXAMPLE:\n\nMarch: Set up company, assign roles, begin product development\nApril: Finalise recipe, source suppliers, order packaging & labels, begin social media\nMay: Produce first batch, launch at Underground Market (26 May)\nJune: Sell at Thorndon Farmers Market (30 June)\nJuly\u2013Sept: Continue selling at markets and school events`,
-fields:[
-{id:"timeline",label:"Key Milestones & Timeline",ph:"List your key dates and what needs to happen:\n\nMonth 1: \u2026\nMonth 2: \u2026\nMonth 3: \u2026\n(Include production, marketing, and sales milestones)"},
-]},
-{id:"market-research",title:"Market Research",cat:"marketing",
-guidance:"PRIMARY research = information YOU collected (surveys, interviews, taste tests). Describe what you did, what you found, and what it means.\n\nSECONDARY research = information from OTHER sources (articles, statistics, reports). Include market trends, market size, and competitor analysis.",
-exemplar:`SWEET STREET EXAMPLE:\n\nPrimary Research: We conducted a taste test with 30 students at school. 87% said they would buy our brownies. Feedback suggested we add more chocolate flavour and make packs of 5 (not 3). We also surveyed 20 adults at the Underground Market \u2014 15 said they regularly buy healthy snacks.\n\nSecondary Research: The NZ health food market is growing at 8% per year. Superfoods like chia and coconut oil are trending on social media. Our main competitors are local bakeries and health food stores, but none sell at the markets where we plan to trade.`,
-fields:[
-{id:"primary",label:"Primary Research (your own research)",ph:"What research did YOU do? (surveys, taste tests, interviews)\nHow many people? What did you find? What did the feedback tell you?"},
-{id:"secondary",label:"Secondary Research (from other sources)",ph:"What did you find out about your market from articles, websites, or statistics?\nInclude: market trends, market size, competitor analysis"},
-]},
-{id:"target-market",title:"Target Market",cat:"marketing",
-guidance:"Describe the people most likely to buy your product. Include:\n\u2022 Demographics \u2014 age, gender, location, income\n\u2022 Psychographics \u2014 interests, values, lifestyle\n\u2022 Buying motivation \u2014 why they would buy YOUR product",
-exemplar:`SWEET STREET EXAMPLE:\n\nDemographics: Health-conscious women aged 22\u201345 living in the Wellington region. Middle income earners who shop at farmers markets and boutique food stores.\n\nPsychographics: They value healthy eating and are interested in superfoods and clean eating trends. They are active on social media (especially Instagram) and follow health & wellness accounts.\n\nBuying Motivation: They want to enjoy sweet treats without the guilt. They are willing to pay more for high-quality, healthy ingredients. They also like supporting local, small businesses with a social mission.`,
-fields:[
-{id:"target-market-desc",label:"Describe your target market",ph:"Demographics: Who are they? (age, gender, location, income)\n\nPsychographics: What do they care about? (interests, values, lifestyle)\n\nBuying Motivation: WHY would they buy your product?"},
-]},
-{id:"marketing-mix",title:"Marketing Mix (4Ps)",cat:"marketing",
-guidance:"The 4Ps = Product, Price, Promotion, Place. Together they make your marketing strategy \u2014 what you sell, how much it costs, how people find out about it, and where they buy it.",
-exemplar:`SWEET STREET EXAMPLE:\n\nProduct: Packs of 5 healthy brownies made from coconut oil, dark chocolate, dates, chia & flaxseed. Packaged in eco-friendly kraft boxes with branded labels. UVP: \u201cDelicious brownies that are actually good for you.\u201d\n\nPrice: $5.95 per pack. Competitive pricing \u2014 slightly cheaper than similar products at health food stores ($7\u20139) to attract first-time buyers.\n\nPromotion: Instagram account posting 2x per week. Giveaway competitions. Free samples at markets. Word of mouth from school community.\n\nPlace: Wellington Underground Market, Thorndon Farmers Market, school events (Open Evening, School Production).`,
-fields:[
-{id:"product",label:"Product \u2014 What are you selling?",ph:"Describe your product, packaging, and unique value proposition"},
-{id:"price",label:"Price \u2014 How much does it cost?",ph:"What is your selling price? What pricing strategy are you using and why?"},
-{id:"promotion",label:"Promotion \u2014 How will people find out?",ph:"How will you promote your product? (social media, samples, posters, word of mouth\u2026)"},
-{id:"place",label:"Place \u2014 Where can people buy it?",ph:"What sales channels will you use? (markets, online, school events, shops\u2026)"},
-]},
-{id:"our-team",title:"Our Team",cat:"hr",
-guidance:"Describe who is in your company and what each person does. Include their role title, main tasks, and what skills or strengths make them suitable for that role.",
-exemplar:`SWEET STREET EXAMPLE:\n\nGeneral Manager \u2014 Hana: Oversees all operations, chairs meetings, communicates with external stakeholders. Strong leadership and communication skills from being a school prefect.\n\nMarketing Manager \u2014 Josh: Runs Instagram, designs promotional material, manages market stall setup. Skilled in graphic design and photography.\n\nFinance Manager \u2014 Maia: Tracks income and expenses, prepares financial statements, manages the bank account. Strong in maths and experienced with spreadsheets.\n\nProduction Manager \u2014 Liam: Sources ingredients, manages production schedule, ensures quality. Has food handling experience from working in a cafe.\n\nOperations Manager \u2014 Aroha: Manages timeline, organises meetings, ensures tasks are completed on time. Highly organised and detail-oriented.`,
-fields:[
-{id:"team",label:"Our Team \u2014 Who does what?",ph:"For each team member, write:\n\u2022 Name and Role\n\u2022 Main tasks in this role\n\u2022 Skills that make them suitable for this role"},
-]},
-{id:"resources-suppliers",title:"Resources & Suppliers",cat:"production",
-guidance:"List all the resources (materials, ingredients, packaging) you need to make your product, and identify where you will get them from.",
-exemplar:`SWEET STREET EXAMPLE:\n\nResources needed:\n\u2022 Ingredients: coconut oil, dark chocolate, dates, chia seeds, flaxseed, apple sauce, flour\n\u2022 Packaging: kraft paper boxes (packs of 50)\n\u2022 Labels: custom-printed labels (300 labels)\n\u2022 Equipment: mixing bowls, baking trays, oven (school kitchen)\n\nSuppliers:\n\u2022 Ingredients \u2014 Countdown (bulk buy for best price)\n\u2022 Packaging \u2014 PacknSend (wholesale packaging supplier)\n\u2022 Labels \u2014 Avery Labels (custom printed online, $164 for 300)`,
-fields:[
-{id:"resources",label:"Resources needed",ph:"List all materials, ingredients, packaging, and equipment you need"},
-{id:"suppliers",label:"Suppliers",ph:"For each resource, who is your supplier? Why did you choose them?"},
-]},
-{id:"production-quality",title:"Production Process & Quality",cat:"production",
-guidance:"Describe step-by-step HOW your product will be made. Then explain how you will make sure it is high quality every time. Also mention any Health & Safety, intellectual property, or NZ regulations relevant to your product.",
-exemplar:`SWEET STREET EXAMPLE:\n\nProduction Process:\n1. Weigh and measure all ingredients\n2. Melt coconut oil and dark chocolate in a double boiler\n3. Mix dry ingredients (dates, chia, flaxseed, flour)\n4. Combine wet and dry ingredients, add apple sauce\n5. Pour into lined baking tray, refrigerate for 2 hours\n6. Cut into individual brownies, pack into boxes of 5\n7. Apply labels and store in cool place\n\nQuality Management:\n\u2022 Use the same recipe and measurements every time\n\u2022 Taste test each batch before packaging\n\u2022 Check packaging is sealed and labelled correctly\n\nHealth & Safety: All team members completed food safety training. We use the school kitchen which meets NZ food safety standards. Ingredients are labelled for allergens.`,
-fields:[
-{id:"process",label:"Production Process (step by step)",ph:"Describe each step of making your product, from start to finish"},
-{id:"quality",label:"Quality Management",ph:"How will you make sure your product is high quality every time?"},
-{id:"other-issues",label:"Health & Safety / Regulations / IP",ph:"Any relevant health & safety, food regulations, or intellectual property issues?"},
-]},
-{id:"sources-finance",title:"Sources of Finance",cat:"finance",
-guidance:"Explain how much money you need to start your business (start-up capital) and where this money will come from. Common sources for YES companies: selling shares, fundraising, grants, loans, seed funding.",
-exemplar:`SWEET STREET EXAMPLE:\n\nStart-up capital needed: $540\n\nSources:\n\u2022 Sale of shares: $400 (each team member invested $80)\n\u2022 Fundraising: $140 (sausage sizzle $100 in March, bake sale $40 in April)\n\nThis $540 will cover initial ingredient purchases, packaging, labels, product development costs, and first market stall fee.`,
-fields:[
-{id:"finance-sources",label:"Sources of Finance",ph:"How much start-up capital do you need?\n\nWhere will this money come from?\n\u2022 Shares: $___\n\u2022 Fundraising: $___\n\u2022 Other: $___\n\nWhat will the start-up capital be used for?"},
-]},
-{id:"costs-breakeven",title:"Cost Breakdown & Break-Even",cat:"finance",
-guidance:"Show your variable costs (cost per unit) and fixed costs (other expenses). Then calculate your break-even point:\n\nBreak-Even = Total Fixed Costs \u00f7 (Selling Price \u2212 Variable Cost per Unit)\n\nThis tells you how many units you must sell before you start making a profit.",
-exemplar:`SWEET STREET EXAMPLE:\n\nVariable Cost per Pack:\n\u2022 Coconut oil: $0.20\n\u2022 Dark chocolate: $0.31\n\u2022 Dates: $0.35\n\u2022 Chia: $0.12 \u2022 Flaxseed: $0.10\n\u2022 Apple sauce: $0.24 \u2022 Flour: $0.20\n\u2022 Packaging: $0.49 \u2022 Labels: $0.55\nTotal Variable Cost per Unit: $2.56\n\nFixed Costs:\n\u2022 Product development: $20\n\u2022 Market stall fees: $135\n\u2022 Stall materials: $25 \u2022 Free samples: $25\nTotal Fixed Costs: $205\n\nBreak-Even: $205 \u00f7 ($5.95 \u2212 $2.56) = $205 \u00f7 $3.39 = 60.5\nWe need to sell 61 packs before we start making a profit.`,
-fields:[
-{id:"variable-costs",label:"Variable Costs (cost per unit)",ph:"List each ingredient/material and its cost per unit:\n\u2022 Item 1: $___\n\u2022 Item 2: $___\nTotal Variable Cost per Unit: $___"},
-{id:"fixed-costs",label:"Fixed Costs (other expenses)",ph:"List your fixed costs:\n\u2022 Expense 1: $___\n\u2022 Expense 2: $___\nTotal Fixed Costs: $___"},
-{id:"breakeven",label:"Break-Even Calculation",ph:"Total Fixed Costs \u00f7 (Selling Price \u2212 Variable Cost per Unit) = ?\n\n$___ \u00f7 ($___ \u2212 $___) = ___ units\n\nWe need to sell ___ units before we start making a profit."},
-]},
-{id:"income-statement",title:"Forecast Income Statement",cat:"finance",
-guidance:"Shows your planned Revenue (sales), minus Cost of Goods Sold (variable costs) = Gross Profit. Then subtract Expenses (fixed costs) = Net Profit. Prepare this for your planned sales in Cycle 1.",
-exemplar:`SWEET STREET EXAMPLE \u2014 Forecast Income Statement (300 packs):\n\nSales Revenue:                  $1,785.00\n  (300 packs \u00d7 $5.95)\nLess: Cost of Goods Sold:         $768.00\n  (300 packs \u00d7 $2.56)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nGross Profit:                   $1,017.00\n\nPlus: Other Revenue (fundraising): $140.00\n\nLess: Expenses:\n  Product development:              $20.00\n  Market stall fees:               $135.00\n  Market stall materials:           $25.00\n  Free samples:                     $25.00\n  Total Expenses:                  $205.00\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNet Profit:                       $952.00\n\nLess: Donation to KidsCan (25%):  $238.00\nLess: YES Taxation (25%):         $178.50\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNet Profit after donation & tax:  $535.50`,
-fields:[
-{id:"income-stmt",label:"Your Forecast Income Statement",ph:"Sales Revenue:                    $___\n  (___ units \u00d7 $___)\nLess: Cost of Goods Sold:         $___\n  (___ units \u00d7 $___)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nGross Profit:                     $___\n\nLess: Expenses:\n  (list each expense):            $___\n  Total Expenses:                 $___\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNet Profit:                       $___"},
-]},
-{id:"cashflow",title:"Cash Flow Forecast",cat:"finance",
-guidance:"Shows when money comes IN (receipts) and when money goes OUT (payments) each month. This proves you will have enough cash to pay your bills when they are due. Different from the Income Statement because it shows the TIMING of cash movements.",
-exemplar:`SWEET STREET EXAMPLE \u2014 Cash Flow Forecast:\n\n                    Mar    Apr    May    Jun    Jul    Aug    Sep\nRECEIPTS:\nSale of brownies     \u2013      \u2013    297    297    297    178    714\nSale of shares     400      \u2013      \u2013      \u2013      \u2013      \u2013      \u2013\nFundraising        100     40      \u2013      \u2013      \u2013      \u2013      \u2013\nTotal Receipts     500     40    297    297    297    178    714\n\nPAYMENTS:\nIngredients          \u2013      \u2013     76     76     76     46    182\nPackaging            \u2013      \u2013    148      \u2013      \u2013      \u2013      \u2013\nLabels               \u2013      \u2013    164      \u2013      \u2013      \u2013      \u2013\nProduct dev          \u2013      \u2013     20      \u2013      \u2013      \u2013      \u2013\nStall fees           \u2013      \u2013     50     35     50      \u2013      \u2013\nStall materials      \u2013      \u2013     25      \u2013      \u2013      \u2013      \u2013\nFree samples         \u2013      \u2013      5      5      5      5      5\nTotal Payments       0      0    488    116    131     51    187\n\nExcess/(Deficit)   500     40  (191)   181    166    127    527\nOpening Balance      0    500    540    349    531    697    825\nClosing Balance    500    540    349    531    697    825  1,352`,
-fields:[
-{id:"cashflow-desc",label:"Your Cash Flow Forecast",ph:"List your receipts and payments by month:\n\nMonth 1:\n  Receipts: $___\n  Payments: $___\n  Opening Balance: $___\n  Closing Balance: $___\n\nMonth 2: \u2026\n\n(Tip: prepare this in a spreadsheet and summarise here)"},
-]},
+const ICO={menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>',chevR:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',chevL:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',dl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>'};
+const CATS={overview:{label:"Overview",color:"#0d9488",bg:"#ccfbf1"},intro:{label:"Introduction",color:"#2563eb",bg:"#dbeafe"},marketing:{label:"Marketing",color:"#16a34a",bg:"#dcfce7"},hr:{label:"Human Resources",color:"#ea580c",bg:"#ffedd5"},production:{label:"Production",color:"#7c3aed",bg:"#ede9fe"},finance:{label:"Finance",color:"#dc2626",bg:"#fee2e2"}};
+const SECTIONS=[
+{id:"lean-canvas",title:"Lean Canvas",cat:"overview",guidance:"The Lean Canvas is a one-page snapshot of your entire business. Fill each box with short, clear statements.",exemplar:"SWEET STREET EXAMPLE:\n\u2022 Problem: People want treats but most are unhealthy\n\u2022 Target Market: Health-conscious consumers aged 22\u201345\n\u2022 Solution: Healthy brownies from superfoods\n\u2022 Existing Alternatives: Cafes, health bars, bakeries\n\u2022 UVP: Delicious brownies that are actually good for you\n\u2022 Sales Channels: Weekend markets, school events\n\u2022 Competitive Advantage: Trending superfood ingredients\n\u2022 Costs: Ingredients $2.56/pack, stall fees, packaging\n\u2022 Revenue: Packs of 5 brownies at $5.95",fields:[{id:"problem",label:"Problem",ph:"What problem does your product solve?"},{id:"target-market",label:"Target Market",ph:"Who is most likely to buy?"},{id:"solution",label:"Solution",ph:"How does your product solve each problem?"},{id:"existing-alt",label:"Existing Alternatives",ph:"Who are your main competitors?"},{id:"uvp",label:"Unique Value Proposition",ph:"Why should customers buy YOUR product?"},{id:"sales-channels",label:"Sales Channels",ph:"How will customers buy your product?"},{id:"competitive-adv",label:"Competitive Advantage",ph:"What can\u2019t competitors easily copy?"},{id:"costs",label:"Costs",ph:"Variable costs + fixed costs"},{id:"revenue",label:"Revenue Streams",ph:"How will you make money?"}],rows:3},
+{id:"business-idea",title:"Business Idea & Community Focus",cat:"intro",guidance:"Describe your product/service and your community well-being focus. Your business MUST improve social, mental, or physical well-being in your community.",exemplar:"SWEET STREET EXAMPLE:\n\nBusiness Idea: Sweet Street produces and sells packs of healthy brownies made from superfoods including coconut oil, dark chocolate, dates, chia seeds, and flaxseed. Each pack contains 5 brownies sold at markets and school events.\n\nCommunity Focus: Donating 25% of net profit to KidsCan, supporting Kiwi kids in poverty with food, clothing, and health products.",maori:{concept:"Manaakitanga",meaning:"Caring for others \u2014 showing respect, generosity, and aroha (love) for your community",prompt:"How does your business show manaakitanga? How does your community focus demonstrate care for others?"},fields:[{id:"product-desc",label:"Describe your product or service",ph:"What are you selling? What is it made from? How is it packaged?"},{id:"community-focus",label:"Community well-being focus",ph:"Who will you support? How? (e.g. donating % of profit)"}]},
+{id:"vision-values-goals",title:"Vision, Values & SMART Goals",cat:"intro",guidance:"Mission = WHY your business exists. Values = principles your team follows. SMART goals = Specific, Measurable, Achievable, Relevant, Time-bound targets. Include sales, profit, and community targets.",exemplar:"SWEET STREET EXAMPLE:\n\nMission: To provide healthy snacks while supporting Kiwi kids through KidsCan.\n\nValues: Health & Well-being, Quality, Community, Sustainability\n\nSMART Goals for Cycle 1:\n\u2022 Sell 50 packs at Underground Market on 26 May\n\u2022 Make $84.50 profit from Cycle 1\n\u2022 Donate $21.13 (25%) to KidsCan by 1 June",maori:{concept:"Kotahitanga",meaning:"Unity \u2014 working together as one towards a shared purpose and vision",prompt:"How do your mission and values reflect kotahitanga? How does your team work towards a common goal?"},fields:[{id:"mission",label:"Vision / Mission Statement",ph:"Why does your business exist?"},{id:"values",label:"Company Values",ph:"3\u20135 principles that guide your team"},{id:"smart-goals",label:"SMART Goals for Cycle 1",ph:"\u2022 Sales target (units, where, when)\n\u2022 Profit target (how much, when)\n\u2022 Community target (donation/impact, when)"}]},
+{id:"swot",title:"SWOT Analysis",cat:"intro",guidance:"Strengths & Weaknesses = INTERNAL (your business).\nOpportunities & Threats = EXTERNAL (market/environment).\nFor Merit/Excellence: explain HOW each affects your business.",exemplar:"SWEET STREET:\n\nStrengths: Trending superfoods attract health-conscious buyers. Team member works at a gym \u2014 access to target market.\n\nWeaknesses: No customer base or brand awareness yet. Limited marketing budget.\n\nOpportunities: Growing healthy snack demand. High foot traffic at weekend markets.\n\nThreats: Other food vendors. New brand trust issues. Weather risks.",fields:[{id:"strengths",label:"Strengths (internal)",ph:"Your advantages?"},{id:"weaknesses",label:"Weaknesses (internal)",ph:"Your limitations?"},{id:"opportunities",label:"Opportunities (external)",ph:"Trends that could help?"},{id:"threats",label:"Threats (external)",ph:"What could go wrong?"}]},
+{id:"timeline",title:"Timeline / Gantt Chart",cat:"intro",guidance:"Key milestones for production, marketing, and sales. Shows you have a realistic plan.",exemplar:"SWEET STREET:\nMarch: Set up company, assign roles\nApril: Finalise recipe, order packaging, begin social media\nMay: First batch, launch at Underground Market\nJune: Thorndon Farmers Market\nJuly\u2013Sept: Continue at markets and school events",fields:[{id:"timeline",label:"Key Milestones",ph:"Month 1: \u2026\nMonth 2: \u2026\nMonth 3: \u2026"}]},
+{id:"market-research",title:"Market Research",cat:"marketing",guidance:"PRIMARY = your own research (surveys, taste tests, interviews).\nSECONDARY = other sources (articles, stats). Include market trends, size, competitors.",exemplar:"SWEET STREET:\n\nPrimary: Taste test with 30 students \u2014 87% would buy. Surveyed 20 adults \u2014 15 regularly buy healthy snacks.\n\nSecondary: NZ health food market growing 8%/year. Superfoods trending. No competitors at our planned markets.",fields:[{id:"primary",label:"Primary Research (yours)",ph:"What did YOU do? How many people? What did you find?"},{id:"secondary",label:"Secondary Research (other sources)",ph:"Market trends, size, competitor analysis"}]},
+{id:"target-market",title:"Target Market",cat:"marketing",guidance:"Demographics (age, gender, location), Psychographics (interests, values), Buying motivation (why YOUR product).",exemplar:"SWEET STREET:\n\nDemographics: Health-conscious women 22\u201345, Wellington, middle income.\n\nPsychographics: Value healthy eating, follow wellness on Instagram.\n\nMotivation: Want guilt-free treats. Pay more for quality. Support local + social mission.",fields:[{id:"target-market-desc",label:"Describe your target market",ph:"Demographics: Who?\nPsychographics: What do they care about?\nMotivation: WHY would they buy?"}]},
+{id:"marketing-mix",title:"Marketing Mix (4Ps)",cat:"marketing",guidance:"Product + Price + Promotion + Place = your marketing strategy.",exemplar:"SWEET STREET:\n\nProduct: 5-pack healthy brownies, eco-friendly packaging, branded labels.\nPrice: $5.95 \u2014 competitive vs health stores ($7\u20139).\nPromotion: Instagram 2x/week, giveaways, free samples.\nPlace: Underground Market, Thorndon Farmers Market, school events.",fields:[{id:"product",label:"Product",ph:"Product, packaging, UVP?"},{id:"price",label:"Price",ph:"Selling price? Strategy?"},{id:"promotion",label:"Promotion",ph:"How will people find out?"},{id:"place",label:"Place",ph:"Where can they buy?"}]},
+{id:"our-team",title:"Our Team",cat:"hr",guidance:"Each person: role title, tasks, skills/strengths.",exemplar:"SWEET STREET:\nGeneral Manager \u2014 Hana: Leads, chairs meetings. School prefect.\nMarketing \u2014 Josh: Instagram, promo design. Graphic design skills.\nFinance \u2014 Maia: Tracks money, financial statements. Maths strength.\nProduction \u2014 Liam: Ingredients, production. Cafe experience.\nOperations \u2014 Aroha: Timeline, meetings. Highly organised.",maori:{concept:"Whanaungatanga",meaning:"Relationships \u2014 building belonging, teamwork, and connection within your team",prompt:"How does your team show whanaungatanga? How do you build strong relationships and support each other?"},fields:[{id:"team",label:"Our Team",ph:"For each member:\n\u2022 Name + Role\n\u2022 Main tasks\n\u2022 Why they suit this role"}]},
+{id:"resources-suppliers",title:"Resources & Suppliers",cat:"production",guidance:"All resources needed + where you get them.",exemplar:"SWEET STREET:\nResources: ingredients, kraft boxes, custom labels, school kitchen\nSuppliers: Countdown (ingredients, bulk), PacknSend (packaging), Avery (labels, $164/300)",fields:[{id:"resources",label:"Resources needed",ph:"Materials, ingredients, packaging, equipment"},{id:"suppliers",label:"Suppliers",ph:"Who supplies each resource? Why them?"}]},
+{id:"production-quality",title:"Production Process & Quality",cat:"production",guidance:"Step-by-step production process. Quality management. Health & Safety / regulations.",exemplar:"SWEET STREET:\nProcess: 1. Weigh ingredients 2. Melt chocolate+oil 3. Mix dry 4. Combine 5. Refrigerate 2hrs 6. Cut+pack 7. Label\n\nQuality: Same recipe each time, taste test each batch, check packaging.\n\nH&S: Food safety training, school kitchen meets NZ standards, allergens labelled.",maori:{concept:"Kaitiakitanga",meaning:"Guardianship \u2014 caring for resources, the environment, and sustainability for future generations",prompt:"How does your production show kaitiakitanga? Sustainable practices, packaging, or environmental care?"},fields:[{id:"process",label:"Production Process",ph:"Step 1: \u2026\nStep 2: \u2026"},{id:"quality",label:"Quality Management",ph:"How do you ensure consistent quality?"},{id:"other-issues",label:"H&S / Regulations / IP",ph:"Any relevant issues?"}]},
+{id:"sources-finance",title:"Sources of Finance",cat:"finance",guidance:"How much start-up capital? Where from? (shares, fundraising, grants, loans)",exemplar:"SWEET STREET:\nNeeded: $540\n\u2022 Shares: $400 ($80 each)\n\u2022 Fundraising: $140 (sausage sizzle + bake sale)\nCovers ingredients, packaging, labels, product dev, first stall fee.",fields:[{id:"finance-sources",label:"Sources of Finance",ph:"How much needed?\n\u2022 Shares: $___\n\u2022 Fundraising: $___\nWhat will it cover?"}]},
+{id:"costs-breakeven",title:"Cost Breakdown & Break-Even",cat:"finance",finance:"costs",guidance:"Enter variable costs (per unit), fixed costs, and selling price. Break-even auto-calculates.\n\nBreak-Even = Fixed Costs \u00f7 (Selling Price \u2212 Variable Cost per Unit)",exemplar:"SWEET STREET:\nSelling Price: $5.95\nVariable/unit: $2.56 (ingredients $1.52 + packaging $0.49 + labels $0.55)\nFixed: $205 (dev $20, stall fees $135, materials $25, samples $25)\nBreak-Even: $205 \u00f7 $3.39 = 61 packs",fields:[]},
+{id:"income-statement",title:"Forecast Income Statement",cat:"finance",finance:"income",guidance:"Enter planned units and other revenue. Costs auto-fill from your Cost Breakdown. The statement calculates your planned profit.",exemplar:"SWEET STREET (300 packs):\nRevenue $1,785 \u2212 COGS $768 = Gross Profit $1,017\n+ Fundraising $140 \u2212 Expenses $205 = Net Profit $952\n\u2212 KidsCan 25% ($238) \u2212 Tax 25% ($178.50) = $535.50",fields:[]},
+{id:"cashflow",title:"Cash Flow Forecast",cat:"finance",guidance:"Monthly receipts vs payments. Shows you can pay bills on time. Best prepared in a spreadsheet \u2014 summarise key points here.",exemplar:"SWEET STREET:\n              Mar   Apr   May   Jun   Jul   Aug   Sep\nReceipts      500    40   297   297   297   178   714\nPayments        0     0   488   116   131    51   187\nBalance       500   540   349   531   697   825 1,352\n\nMay has a deficit (\u2212$191) from upfront packaging costs, but $540 opening balance covers it.",fields:[{id:"cashflow-desc",label:"Cash Flow Summary",ph:"Monthly receipts, payments, and closing balances.\n\nKey insight: when are your biggest costs? Do you always have enough cash?\n\n(Tip: build this in a spreadsheet and paste key numbers here)"}]},
 ];
 
 // ─── STATE ────────────────────────────────────────────────
-let state = { current:0, inputs:{}, completed:{}, companyName:"", studentName:"", menuOpen:false, showExemplar:true };
-let saveTimeout = null;
+let S={current:0,inputs:{},completed:{},companyName:"",studentName:"",menuOpen:false,showExemplar:true};
+let _saveT=null;
+function _def(k,d){if(S.inputs[k]===undefined)S.inputs[k]=typeof d==='string'?d:JSON.stringify(d)}
+function _getJ(k,d){try{const v=S.inputs[k];return v?JSON.parse(v):d}catch(e){return d}}
+function initFin(){_def("fin__sp","");_def("fin__vc",[{item:"",cost:""}]);_def("fin__fc",[{item:"",cost:""}]);_def("fin__units","");_def("fin__or",[{item:"",amount:""}]);_def("fin__dpct","");_def("fin__dto","")}
+function save(){clearTimeout(_saveT);_saveT=setTimeout(()=>{try{localStorage.setItem("bizplan-yes-v2",JSON.stringify({inputs:S.inputs,completed:S.completed,companyName:S.companyName,studentName:S.studentName}))}catch(e){}const el=document.getElementById("save-status");if(el)el.textContent="Saved \u2713"},600);const el=document.getElementById("save-status");if(el)el.textContent="Saving\u2026"}
+function load(){try{const r=localStorage.getItem("bizplan-yes-v2");if(r){const d=JSON.parse(r);S.inputs=d.inputs||{};S.completed=d.completed||{};S.companyName=d.companyName||"";S.studentName=d.studentName||""}}catch(e){}initFin()}
 
-function save() {
-  clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(() => {
-    try {
-      localStorage.setItem("bizplan-yes-v1", JSON.stringify({
-        inputs: state.inputs, completed: state.completed,
-        companyName: state.companyName, studentName: state.studentName
-      }));
-    } catch(e) {}
-    const el = document.getElementById("save-status");
-    if (el) el.textContent = "Saved \u2713";
-  }, 600);
-  const el = document.getElementById("save-status");
-  if (el) el.textContent = "Saving\u2026";
+// ─── FINANCE ──────────────────────────────────────────────
+function fc(){
+  const sp=parseFloat(S.inputs["fin__sp"])||0,vc=_getJ("fin__vc",[]).reduce((s,r)=>s+(parseFloat(r.cost)||0),0),fixc=_getJ("fin__fc",[]).reduce((s,r)=>s+(parseFloat(r.cost)||0),0),u=parseFloat(S.inputs["fin__units"])||0,or=_getJ("fin__or",[]).reduce((s,r)=>s+(parseFloat(r.amount)||0),0),dp=parseFloat(S.inputs["fin__dpct"])||0;
+  const co=sp-vc,bep=co>0?Math.ceil(fixc/co):0,rev=u*sp,cogs=u*vc,gp=rev-cogs,np=gp+or-fixc,don=np>0?np*(dp/100):0,tax=np>0?(np-don)*0.25:0,fp=np-don-tax;
+  return{sp,vc,fixc,u,or,dp,co,bep,rev,cogs,gp,np,don,tax,fp}
+}
+function $f(v){return(typeof v==='number'?v:parseFloat(v||0)).toFixed(2)}
+
+function renderCT(key,label,vlabel){
+  const rows=_getJ(key,[{item:"",cost:""}]),tot=rows.reduce((s,r)=>s+(parseFloat(r.cost)||0),0);
+  return`<div class="fin-section"><div class="fin-section-title">${label}</div><table class="fin-table"><thead><tr><th style="width:55%">Item</th><th style="width:35%">${vlabel}</th><th style="width:10%"></th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td><input type="text" value="${(r.item||'').replace(/"/g,'&quot;')}" data-fin="${key}" data-idx="${i}" data-field="item" placeholder="e.g. Ingredients"></td><td><input type="number" step="0.01" value="${r.cost||''}" data-fin="${key}" data-idx="${i}" data-field="cost" placeholder="0.00"></td><td>${rows.length>1?`<button class="fin-remove" data-fin-rm="${key}" data-idx="${i}">\u00d7</button>`:''}</td></tr>`).join('')}<tr class="total-row"><td>Total</td><td style="text-align:right" id="total-${key}">$${$f(tot)}</td><td></td></tr></tbody></table><button class="fin-add" data-fin-add="${key}">+ Add item</button></div>`
 }
 
-function load() {
-  try {
-    const raw = localStorage.getItem("bizplan-yes-v1");
-    if (raw) {
-      const d = JSON.parse(raw);
-      state.inputs = d.inputs || {};
-      state.completed = d.completed || {};
-      state.companyName = d.companyName || "";
-      state.studentName = d.studentName || "";
-    }
-  } catch(e) {}
+function renderCosts(){
+  const c=fc();
+  return`<div class="fin-row" style="margin-bottom:16px"><label>Selling Price ($)</label><input class="field-input" type="number" step="0.01" id="fin-sp" value="${S.inputs['fin__sp']||''}" placeholder="e.g. 5.95" style="max-width:140px"></div>${renderCT("fin__vc","Variable Costs (cost per unit to make your product)","$ per unit")}${renderCT("fin__fc","Fixed Costs (other business expenses)","Total $")}<div class="fin-result"><div class="fin-result-label">Break-Even Point</div><div id="bep-val" class="fin-result-value">${c.sp>0&&c.co>0?c.bep+' units':'Enter costs and selling price above'}</div><div style="font-size:12px;color:#555;margin-top:4px" id="bep-form">${c.sp>0&&c.co>0?`$${$f(c.fixc)} \u00f7 ($${$f(c.sp)} \u2212 $${$f(c.vc)}) = ${c.bep} units`:''}</div><div style="font-size:12px;color:#15803d;margin-top:4px;font-weight:600" id="bep-sent">${c.bep>0?`You need to sell ${c.bep} units before making a profit.`:''}</div></div>`
+}
+
+function renderIncome(){
+  const c=fc(),ors=_getJ("fin__or",[{item:"",amount:""}]),fcs=_getJ("fin__fc",[]);
+  return`<div class="fin-row" style="margin-bottom:12px"><label>Planned units to sell</label><input class="field-input" type="number" id="fin-u" value="${S.inputs['fin__units']||''}" placeholder="e.g. 300" style="max-width:140px"></div><div class="fin-row" style="margin-bottom:4px"><label>Selling price</label><span class="fin-auto">$${$f(c.sp)}/unit</span></div><div class="fin-row" style="margin-bottom:4px"><label>Variable cost</label><span class="fin-auto">$${$f(c.vc)}/unit</span></div><div style="font-size:11px;color:#999;margin-bottom:16px">(From your Cost Breakdown)</div><div class="fin-calc-box"><div class="fin-calc-row"><span>Sales Revenue</span><span id="is-rev">$${$f(c.rev)}</span></div><div class="fin-calc-row indent"><span>${c.u||'?'} \u00d7 $${$f(c.sp)}</span><span></span></div><div class="fin-calc-row"><span>Less: Cost of Goods Sold</span><span id="is-cogs">($${$f(c.cogs)})</span></div><div class="fin-calc-row indent"><span>${c.u||'?'} \u00d7 $${$f(c.vc)}</span><span></span></div><div class="fin-calc-row subtotal"><span>Gross Profit</span><span id="is-gp">$${$f(c.gp)}</span></div><div style="height:12px"></div><div class="fin-calc-row" style="font-weight:600"><span>Other Revenue:</span><span></span></div>${ors.map((r,i)=>`<div class="fin-calc-row indent"><span><input type="text" value="${(r.item||'').replace(/"/g,'&quot;')}" data-fin="fin__or" data-idx="${i}" data-field="item" placeholder="e.g. Fundraising" style="border:1px solid #ddd;border-radius:4px;padding:3px 6px;width:130px;font-size:12px"></span><span><input type="number" step="0.01" value="${r.amount||''}" data-fin="fin__or" data-idx="${i}" data-field="amount" placeholder="0.00" style="border:1px solid #ddd;border-radius:4px;padding:3px 6px;width:85px;font-size:12px;text-align:right"></span></div>`).join('')}<div><button class="fin-add" data-fin-add="fin__or" style="margin-top:4px;font-size:11px;padding:4px 8px">+ Add revenue</button></div><div style="height:8px"></div><div class="fin-calc-row" style="font-weight:600"><span>Less: Expenses</span><span></span></div>${fcs.map(r=>r.item?`<div class="fin-calc-row indent"><span>${r.item}</span><span>($${$f(r.cost)})</span></div>`:'').join('')}<div class="fin-calc-row indent" style="font-weight:600"><span>Total Expenses</span><span>($${$f(c.fixc)})</span></div><div style="font-size:11px;color:#999;margin:2px 0 8px 16px">(From your Fixed Costs)</div><div class="fin-calc-row subtotal"><span>Net Profit</span><span id="is-np" style="color:${c.np>=0?'#166534':'#dc2626'}">$${$f(c.np)}</span></div><div style="height:12px"></div><div class="fin-calc-row indent"><span>Donation to <input type="text" id="fin-dto" value="${(S.inputs['fin__dto']||'').replace(/"/g,'&quot;')}" placeholder="e.g. KidsCan" style="border:1px solid #ddd;border-radius:4px;padding:3px 6px;width:100px;font-size:12px"> <input type="number" id="fin-dpct" value="${S.inputs['fin__dpct']||''}" placeholder="%" style="border:1px solid #ddd;border-radius:4px;padding:3px 6px;width:50px;font-size:12px;text-align:right">%</span><span>($${$f(c.don)})</span></div><div class="fin-calc-row indent"><span>YES Taxation (25%)</span><span>($${$f(c.tax)})</span></div><div class="fin-calc-row total"><span>Final Profit</span><span>$${$f(c.fp)}</span></div></div>`
 }
 
 // ─── EXPORT ───────────────────────────────────────────────
-function exportPlan() {
-  const {inputs, companyName, studentName} = state;
-  const esc = s => (s||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  let body = "";
-  for (const s of SECTIONS) {
-    const c = CATS[s.cat];
-    let content = "";
-    for (const f of s.fields) {
-      const val = inputs[s.id+"__"+f.id] || "";
-      if (!val.trim()) continue;
-      content += `<div style="margin-bottom:14px"><strong style="color:#555;font-size:13px">${esc(f.label)}</strong><div style="margin-top:4px;white-space:pre-wrap;line-height:1.6">${esc(val)}</div></div>`;
+function exportPlan(){
+  const c=fc(),esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  let body="";
+  for(const sec of SECTIONS){
+    const cat=CATS[sec.cat];let content="";
+    if(sec.finance==="costs"){
+      const vc=_getJ("fin__vc",[]),fixc=_getJ("fin__fc",[]);
+      content+=`<p><b>Selling Price:</b> $${$f(c.sp)}</p><p><b>Variable Costs per Unit:</b></p><table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse;margin-bottom:8px">`;
+      for(const r of vc)if(r.item)content+=`<tr><td>${esc(r.item)}</td><td align="right">$${$f(r.cost)}</td></tr>`;
+      content+=`<tr style="font-weight:bold"><td>Total</td><td align="right">$${$f(c.vc)}</td></tr></table>`;
+      content+=`<p><b>Fixed Costs:</b></p><table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse;margin-bottom:8px">`;
+      for(const r of fixc)if(r.item)content+=`<tr><td>${esc(r.item)}</td><td align="right">$${$f(r.cost)}</td></tr>`;
+      content+=`<tr style="font-weight:bold"><td>Total</td><td align="right">$${$f(c.fixc)}</td></tr></table>`;
+      if(c.bep>0)content+=`<p><b>Break-Even:</b> $${$f(c.fixc)} &divide; ($${$f(c.sp)} &minus; $${$f(c.vc)}) = <b>${c.bep} units</b></p>`;
+    }else if(sec.finance==="income"){
+      const ors=_getJ("fin__or",[]),fixc=_getJ("fin__fc",[]);
+      content+=`<table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse;width:100%">`;
+      content+=`<tr><td>Sales Revenue (${c.u} \u00d7 $${$f(c.sp)})</td><td align="right">$${$f(c.rev)}</td></tr>`;
+      content+=`<tr><td>Less: COGS (${c.u} \u00d7 $${$f(c.vc)})</td><td align="right">($${$f(c.cogs)})</td></tr>`;
+      content+=`<tr style="font-weight:bold"><td>Gross Profit</td><td align="right">$${$f(c.gp)}</td></tr>`;
+      for(const r of ors)if(r.item)content+=`<tr><td>Plus: ${esc(r.item)}</td><td align="right">$${$f(r.amount)}</td></tr>`;
+      for(const r of fixc)if(r.item)content+=`<tr><td>Less: ${esc(r.item)}</td><td align="right">($${$f(r.cost)})</td></tr>`;
+      content+=`<tr style="font-weight:bold"><td>Net Profit</td><td align="right">$${$f(c.np)}</td></tr>`;
+      if(c.don>0)content+=`<tr><td>Less: Donation to ${esc(S.inputs['fin__dto']||'community')} (${c.dp}%)</td><td align="right">($${$f(c.don)})</td></tr>`;
+      content+=`<tr><td>Less: YES Tax (25%)</td><td align="right">($${$f(c.tax)})</td></tr>`;
+      content+=`<tr style="font-weight:bold"><td>Final Profit</td><td align="right">$${$f(c.fp)}</td></tr></table>`;
+    }else{
+      for(const f of sec.fields){const val=S.inputs[sec.id+"__"+f.id]||"";if(!val.trim())continue;content+=`<p><b style="color:#555">${esc(f.label)}</b></p><p style="white-space:pre-wrap">${esc(val)}</p>`}
+      if(sec.maori){const mv=S.inputs[sec.id+"__maori"]||"";if(mv.trim())content+=`<p><b style="color:#15803d">Te Ao M&#257;ori \u2014 ${esc(sec.maori.concept)}</b></p><p style="white-space:pre-wrap">${esc(mv)}</p>`}
     }
-    if (!content) continue;
-    body += `<div style="margin-bottom:28px;page-break-inside:avoid"><h2 style="color:${c.color};border-bottom:2px solid ${c.color};padding-bottom:6px;margin-bottom:12px;font-size:18px">${esc(s.title)}</h2>${content}</div>`;
+    if(!content)continue;
+    body+=`<div style="margin-bottom:24px"><h2 style="color:${cat.color};border-bottom:2px solid ${cat.color};padding-bottom:4px;font-size:16pt">${esc(sec.title)}</h2>${content}</div>`;
   }
-  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Business Plan - ${esc(companyName||"My Company")}</title><style>@page{margin:2cm}body{font-family:Calibri,Arial,sans-serif;max-width:800px;margin:0 auto;padding:40px;color:#222;line-height:1.5}h1{text-align:center;color:#0d9488;margin-bottom:4px}.sub{text-align:center;color:#666;margin-bottom:30px;font-size:15px}.meta{text-align:center;margin-bottom:40px;color:#444}</style></head><body><h1>${esc(companyName||"Our Company")}</h1><p class="sub">Business Plan \u2014 Version 1</p><p class="meta">${studentName?`Prepared by: ${esc(studentName)}<br>`:""}NCEA Level 2 Business Studies (2.6)</p><hr style="border:none;border-top:2px solid #0d9488;margin-bottom:30px">${body}<div style="margin-top:40px;text-align:center;color:#999;font-size:12px;border-top:1px solid #ddd;padding-top:16px">Business Plan generated using the YES Business Plan Builder</div></body></html>`;
-  const blob = new Blob([html], {type:"text/html"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = (companyName||"Business_Plan").replace(/[^a-zA-Z0-9]/g,"_") + "_Business_Plan.html";
-  a.click();
-  URL.revokeObjectURL(url);
+  const cn=esc(S.companyName||"Our Company"),sn=S.studentName?`<p style="text-align:center;color:#444">Prepared by: ${esc(S.studentName)}</p>`:"";
+  const doc=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page{size:A4;margin:2cm}body{font-family:Calibri,Arial,sans-serif;color:#222;line-height:1.5;font-size:11pt}h1{text-align:center;color:#0d9488;font-size:22pt;margin-bottom:2pt}h2{font-size:14pt;margin-top:16pt}table{font-size:10pt}p{margin:4pt 0}</style></head><body><h1>${cn}</h1><p style="text-align:center;color:#666;font-size:13pt">Business Plan \u2014 Version 1</p>${sn}<p style="text-align:center;color:#888;font-size:10pt">NCEA Level 2 Business Studies (2.6)</p><hr style="border:none;border-top:2px solid #0d9488;margin:16pt 0">${body}<p style="text-align:center;color:#999;font-size:9pt;border-top:1px solid #ddd;padding-top:12pt;margin-top:30pt">Generated with the YES Business Plan Builder</p></body></html>`;
+  const blob=new Blob(["\ufeff"+doc],{type:"application/msword"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;
+  a.download=(S.companyName||"Business_Plan").replace(/[^a-zA-Z0-9 ]/g,"").replace(/ /g,"_")+"_Business_Plan.doc";
+  a.click();URL.revokeObjectURL(url);
 }
 
 // ─── RENDER ───────────────────────────────────────────────
-function render() {
-  const s = SECTIONS[state.current];
-  const c = CATS[s.cat];
-  const completedCount = SECTIONS.filter(x => state.completed[x.id]).length;
-  const pct = Math.round((completedCount/SECTIONS.length)*100);
-  const allDone = completedCount === SECTIONS.length;
-
-  // Build field HTML
-  let fieldsHTML = "";
-  for (const f of s.fields) {
-    const key = s.id+"__"+f.id;
-    const val = (state.inputs[key]||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-    const rows = s.rows || 6;
-    fieldsHTML += `<div><label class="field-label">${f.label}</label><textarea class="field-textarea" data-key="${key}" rows="${rows}" placeholder="${f.ph.replace(/"/g,"&quot;")}" style="min-height:${rows===3?'70':'100'}px">${val}</textarea></div>`;
-  }
-
-  const isDone = !!state.completed[s.id];
-
-  document.getElementById("app").innerHTML = `
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-top">
-      <div class="header-left">
-        <button class="menu-btn" id="menu-toggle">${ICO.menu}</button>
-        <div><div class="header-title">\u{1F4CB} Business Plan Builder</div><div class="header-sub">NCEA 2.6 \u2014 YES Company</div></div>
-      </div>
-      <div class="header-right">
-        <span class="save-status" id="save-status">Saved \u2713</span>
-        <button class="export-btn" id="export-btn">${ICO.dl} Export</button>
-      </div>
-    </div>
-    <div class="name-row">
-      <input class="name-input" id="company-name" placeholder="Company Name" value="${(state.companyName||"").replace(/"/g,"&quot;")}">
-      <input class="name-input" id="student-name" placeholder="Your Name" value="${(state.studentName||"").replace(/"/g,"&quot;")}">
-    </div>
-    <div class="progress-row">
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <span class="progress-text">${completedCount}/${SECTIONS.length} done</span>
-    </div>
-  </div>
-
-  <!-- MENU -->
-  <div class="menu-overlay" id="menu-overlay">
-    <div class="menu-panel" id="menu-panel">
-      <div class="menu-heading">Sections</div>
-      ${SECTIONS.map((sec,i) => {
-        const sc = CATS[sec.cat];
-        const done = state.completed[sec.id];
-        const active = i === state.current;
-        return `<button class="menu-item${active?" active":""}" data-nav="${i}" style="background:${active?sc.bg:"transparent"};color:${active?sc.color:"#555"};font-weight:${active?600:400}"><span class="menu-dot${done?" done":""}" style="background:${done?sc.color:"#e5e5e5"};color:${done?"#fff":"#999"}">${done?ICO.check:i+1}</span><span style="flex:1">${sec.title}</span><span class="menu-cat" style="color:${sc.color}">${sc.label}</span></button>`;
-      }).join("")}
-      <button class="menu-reset" id="reset-btn">\u26a0 Reset all progress</button>
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <div class="main" id="main-scroll">
-    <div class="section-meta">
-      <span class="cat-badge" style="background:${c.bg};color:${c.color}">${CATS[s.cat].label}</span>
-      <span class="step-count">Step ${state.current+1} of ${SECTIONS.length}</span>
-    </div>
-    <h1 class="section-title">${s.title}</h1>
-
-    <div class="guidance-card">
-      <div class="guidance-label" style="color:${c.color}">What to do</div>
-      <div class="guidance-text">${s.guidance}</div>
-    </div>
-
-    <button class="exemplar-toggle" id="exemplar-toggle" style="border-color:${c.color}33;color:${c.color}">
-      <span class="exemplar-arrow${state.showExemplar?" open":""}">${ICO.chevR}</span>
-      ${state.showExemplar?"Hide":"Show"} Sweet Street Example
-    </button>
-    <div class="exemplar-box${state.showExemplar?" open":""}" style="background:${c.bg}88;border-left-color:${c.color}">
-      <pre>${s.exemplar}</pre>
-    </div>
-
-    <div class="grade-tip"><strong>Grade tip:</strong> For <strong>Achieved</strong>, state the key information. For <strong>Merit</strong>, add detail and explanation. For <strong>Excellence</strong>, show how this section connects to your overall business mission and objectives.</div>
-
-    <div class="fields">${fieldsHTML}</div>
-
-    <button class="complete-btn" id="complete-btn" style="border-color:${isDone?c.color:"#ddd"};background:${isDone?c.bg:"#fff"};color:${isDone?c.color:"#888"}">
-      <span class="complete-check" style="background:${isDone?c.color:"#e5e5e5"}">${isDone?ICO.check:""}</span>
-      ${isDone?"\u2705 Section Complete!":"Mark this section as complete"}
-    </button>
-
-    ${allDone ? `<div class="all-done"><h3>\u{1F389} Ka pai! All sections complete!</h3><p>Your business plan is ready to export. Click below to download it as a formatted document.</p><button id="final-export">${ICO.dl} Download My Business Plan</button></div>` : ""}
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <button class="nav-btn nav-prev" id="prev-btn" ${state.current===0?"disabled":""}>${ICO.chevL} Previous</button>
-    <span class="nav-mid">${state.current+1} / ${SECTIONS.length}</span>
-    ${state.current < SECTIONS.length-1
-      ? `<button class="nav-btn nav-next" id="next-btn" style="background:${c.color}">Next ${ICO.chevR}</button>`
-      : `<button class="nav-btn nav-next" id="next-btn" style="background:#0d9488">${ICO.dl} Download</button>`}
-  </div>`;
-
+function render(){
+  const sec=SECTIONS[S.current],c=CATS[sec.cat],cc=SECTIONS.filter(x=>S.completed[x.id]).length,pct=Math.round((cc/SECTIONS.length)*100),allDone=cc===SECTIONS.length,isDone=!!S.completed[sec.id];
+  let fieldsHTML="";
+  if(sec.finance==="costs")fieldsHTML=renderCosts();
+  else if(sec.finance==="income")fieldsHTML=renderIncome();
+  else{for(const f of sec.fields){const key=sec.id+"__"+f.id,val=(S.inputs[key]||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"),rows=sec.rows||6;fieldsHTML+=`<div><label class="field-label">${f.label}</label><textarea class="field-textarea" data-key="${key}" rows="${rows}" placeholder="${f.ph.replace(/"/g,"&quot;")}" style="min-height:${rows===3?'70':'100'}px">${val}</textarea></div>`}}
+  let maoriHTML="";
+  if(sec.maori){const mv=(S.inputs[sec.id+"__maori"]||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  maoriHTML=`<div class="maori-box"><div class="maori-title">\u{1F33F} Te Ao M\u0101ori</div><div class="maori-concept">${sec.maori.concept}</div><div class="maori-meaning">${sec.maori.meaning}</div><div class="maori-prompt">${sec.maori.prompt}</div><textarea class="field-textarea" data-key="${sec.id}__maori" rows="3" placeholder="Connect ${sec.maori.concept} to your business\u2026 (Achieved: state it. Merit: explain it. Excellence: integrate throughout.)" style="min-height:70px;border-color:#86efac">${mv}</textarea></div>`}
+  document.getElementById("app").innerHTML=`<div class="header"><div class="header-top"><div class="header-left"><button class="menu-btn" id="menu-toggle">${ICO.menu}</button><div><div class="header-title">\u{1F4CB} Business Plan Builder</div><div class="header-sub">NCEA 2.6 \u2014 YES Company</div></div></div><div class="header-right"><span class="save-status" id="save-status">Saved \u2713</span><button class="export-btn" id="export-btn">${ICO.dl} Export .doc</button></div></div><div class="name-row"><input class="name-input" id="cn" placeholder="Company Name" value="${(S.companyName||"").replace(/"/g,"&quot;")}"><input class="name-input" id="sn" placeholder="Your Name" value="${(S.studentName||"").replace(/"/g,"&quot;")}"></div><div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><span class="progress-text">${cc}/${SECTIONS.length} done</span></div></div><div class="menu-overlay" id="mo"><div class="menu-panel" id="mp"><div class="menu-heading">Sections</div>${SECTIONS.map((s,i)=>{const sc=CATS[s.cat],done=S.completed[s.id],act=i===S.current;return`<button class="menu-item" data-nav="${i}" style="background:${act?sc.bg:"transparent"};color:${act?sc.color:"#555"};font-weight:${act?600:400}"><span class="menu-dot" style="background:${done?sc.color:"#e5e5e5"};color:${done?"#fff":"#999"}">${done?ICO.check:i+1}</span><span style="flex:1">${s.title}</span><span class="menu-cat" style="color:${sc.color}">${sc.label}</span></button>`}).join("")}<button class="menu-reset" id="rb">\u26a0 Reset all progress</button></div></div><div class="main" id="ms"><div class="section-meta"><span class="cat-badge" style="background:${c.bg};color:${c.color}">${CATS[sec.cat].label}</span><span class="step-count">Step ${S.current+1} of ${SECTIONS.length}</span></div><h1 class="section-title">${sec.title}</h1><div class="guidance-card"><div class="guidance-label" style="color:${c.color}">What to do</div><div class="guidance-text">${sec.guidance}</div></div><button class="exemplar-toggle" id="et" style="border-color:${c.color}33;color:${c.color}"><span class="exemplar-arrow${S.showExemplar?" open":""}">${ICO.chevR}</span>${S.showExemplar?"Hide":"Show"} Sweet Street Example</button><div class="exemplar-box${S.showExemplar?" open":""}" style="background:${c.bg}88;border-left-color:${c.color}"><pre>${sec.exemplar}</pre></div><div class="grade-tip"><strong>Grade tip:</strong> <strong>Achieved</strong> = state it. <strong>Merit</strong> = explain it in depth. <strong>Excellence</strong> = integrate it, linking to your mission and objectives.</div>${maoriHTML}<div class="fields">${fieldsHTML}</div><button class="complete-btn" id="cb" style="border-color:${isDone?c.color:"#ddd"};background:${isDone?c.bg:"#fff"};color:${isDone?c.color:"#888"}"><span class="complete-check" style="background:${isDone?c.color:"#e5e5e5"}">${isDone?ICO.check:""}</span>${isDone?"\u2705 Section Complete!":"Mark this section as complete"}</button>${allDone?`<div class="all-done"><h3>\u{1F389} Ka pai! All sections complete!</h3><p>Your business plan is ready to export as a Word document.</p><button id="fe">${ICO.dl} Download Business Plan (.doc)</button></div>`:""}</div><div class="bottom-nav"><button class="nav-btn nav-prev" id="pb" ${S.current===0?"disabled":""}>${ICO.chevL} Previous</button><span class="nav-mid">${S.current+1} / ${SECTIONS.length}</span>${S.current<SECTIONS.length-1?`<button class="nav-btn nav-next" id="nb" style="background:${c.color}">Next ${ICO.chevR}</button>`:`<button class="nav-btn nav-next" id="nb" style="background:#0d9488">${ICO.dl} Download .doc</button>`}</div>`;
   attachEvents();
 }
 
-// ─── EVENT HANDLERS ───────────────────────────────────────
-function attachEvents() {
-  // Menu toggle
-  document.getElementById("menu-toggle").onclick = () => { state.menuOpen = true; document.getElementById("menu-overlay").classList.add("open"); };
-  document.getElementById("menu-overlay").onclick = (e) => { if (e.target.id === "menu-overlay") { state.menuOpen = false; document.getElementById("menu-overlay").classList.remove("open"); }};
-  document.getElementById("menu-panel").onclick = (e) => e.stopPropagation();
-
-  // Menu navigation
-  document.querySelectorAll("[data-nav]").forEach(btn => {
-    btn.onclick = () => { state.current = parseInt(btn.dataset.nav); state.menuOpen = false; render(); scrollMain(); };
-  });
-
-  // Reset
-  const resetBtn = document.getElementById("reset-btn");
-  if (resetBtn) resetBtn.onclick = () => {
-    if (confirm("Are you sure you want to clear ALL your work? This cannot be undone.")) {
-      state.inputs = {}; state.completed = {}; state.companyName = ""; state.studentName = "";
-      state.current = 0; save(); render(); scrollMain();
-    }
-  };
-
-  // Name inputs
-  document.getElementById("company-name").oninput = (e) => { state.companyName = e.target.value; save(); };
-  document.getElementById("student-name").oninput = (e) => { state.studentName = e.target.value; save(); };
-
-  // Textareas
-  document.querySelectorAll(".field-textarea").forEach(ta => {
-    ta.oninput = () => { state.inputs[ta.dataset.key] = ta.value; save(); };
-    ta.onfocus = () => { ta.style.borderColor = CATS[SECTIONS[state.current].cat].color; };
-    ta.onblur = () => { ta.style.borderColor = "#ddd"; };
-  });
-
-  // Exemplar toggle
-  document.getElementById("exemplar-toggle").onclick = () => { state.showExemplar = !state.showExemplar; render(); };
-
-  // Complete toggle
-  document.getElementById("complete-btn").onclick = () => {
-    const sid = SECTIONS[state.current].id;
-    state.completed[sid] = !state.completed[sid];
-    save(); render();
-  };
-
-  // Navigation
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  if (prevBtn) prevBtn.onclick = () => { if (state.current > 0) { state.current--; render(); scrollMain(); }};
-  if (nextBtn) nextBtn.onclick = () => {
-    if (state.current < SECTIONS.length - 1) { state.current++; render(); scrollMain(); }
-    else { exportPlan(); }
-  };
-
-  // Export
-  document.getElementById("export-btn").onclick = exportPlan;
-  const finalExport = document.getElementById("final-export");
-  if (finalExport) finalExport.onclick = exportPlan;
+function attachEvents(){
+  const $=id=>document.getElementById(id);
+  $("menu-toggle").onclick=()=>{$("mo").classList.add("open")};
+  $("mo").onclick=e=>{if(e.target.id==="mo")$("mo").classList.remove("open")};
+  $("mp").onclick=e=>e.stopPropagation();
+  document.querySelectorAll("[data-nav]").forEach(b=>{b.onclick=()=>{S.current=+b.dataset.nav;S.menuOpen=false;render();sm()}});
+  const rb=$("rb");if(rb)rb.onclick=()=>{if(confirm("Clear ALL work? Cannot be undone.")){S.inputs={};S.completed={};S.companyName="";S.studentName="";S.current=0;initFin();save();render();sm()}};
+  $("cn").oninput=e=>{S.companyName=e.target.value;save()};
+  $("sn").oninput=e=>{S.studentName=e.target.value;save()};
+  document.querySelectorAll(".field-textarea[data-key]").forEach(ta=>{ta.oninput=()=>{S.inputs[ta.dataset.key]=ta.value;save()}});
+  $("et").onclick=()=>{S.showExemplar=!S.showExemplar;render()};
+  $("cb").onclick=()=>{S.completed[SECTIONS[S.current].id]=!S.completed[SECTIONS[S.current].id];save();render()};
+  const pb=$("pb"),nb=$("nb");
+  if(pb)pb.onclick=()=>{if(S.current>0){S.current--;render();sm()}};
+  if(nb)nb.onclick=()=>{if(S.current<SECTIONS.length-1){S.current++;render();sm()}else exportPlan()};
+  $("export-btn").onclick=exportPlan;
+  const fe=$("fe");if(fe)fe.onclick=exportPlan;
+  // Finance events
+  const spEl=$("fin-sp");if(spEl)spEl.oninput=()=>{S.inputs["fin__sp"]=spEl.value;save();uf()};
+  const uEl=$("fin-u");if(uEl)uEl.oninput=()=>{S.inputs["fin__units"]=uEl.value;save();uf()};
+  const dpEl=$("fin-dpct");if(dpEl)dpEl.oninput=()=>{S.inputs["fin__dpct"]=dpEl.value;save();uf()};
+  const dtEl=$("fin-dto");if(dtEl)dtEl.oninput=()=>{S.inputs["fin__dto"]=dtEl.value;save()};
+  document.querySelectorAll("[data-fin][data-idx][data-field]").forEach(inp=>{inp.oninput=()=>{const k=inp.dataset.fin,i=+inp.dataset.idx,f=inp.dataset.field,rows=_getJ(k,[]);if(rows[i])rows[i][f]=inp.value;S.inputs[k]=JSON.stringify(rows);save();uf()}});
+  document.querySelectorAll("[data-fin-add]").forEach(btn=>{btn.onclick=()=>{const k=btn.dataset.finAdd,rows=_getJ(k,[]),t=k.includes("or")?{item:"",amount:""}:{item:"",cost:""};rows.push(t);S.inputs[k]=JSON.stringify(rows);save();render()}});
+  document.querySelectorAll("[data-fin-rm]").forEach(btn=>{btn.onclick=()=>{const k=btn.dataset.finRm,rows=_getJ(k,[]);rows.splice(+btn.dataset.idx,1);S.inputs[k]=JSON.stringify(rows);save();render()}});
 }
 
-function scrollMain() {
-  const el = document.getElementById("main-scroll");
-  if (el) el.scrollTop = 0;
+function uf(){
+  const c=fc();
+  const u=(id,txt)=>{const el=document.getElementById(id);if(el)el.textContent=txt};
+  u("total-fin__vc","$"+$f(c.vc));u("total-fin__fc","$"+$f(c.fixc));
+  u("bep-val",c.sp>0&&c.co>0?c.bep+" units":"Enter costs and selling price above");
+  u("bep-form",c.sp>0&&c.co>0?`$${$f(c.fixc)} \u00f7 ($${$f(c.sp)} \u2212 $${$f(c.vc)}) = ${c.bep} units`:"");
+  u("bep-sent",c.bep>0?`You need to sell ${c.bep} units before making a profit.`:"");
+  u("is-rev","$"+$f(c.rev));u("is-cogs","($"+$f(c.cogs)+")");u("is-gp","$"+$f(c.gp));
+  const npEl=document.getElementById("is-np");if(npEl){npEl.textContent="$"+$f(c.np);npEl.style.color=c.np>=0?"#166534":"#dc2626"}
 }
 
-// ─── INIT ─────────────────────────────────────────────────
-load();
-render();
+function sm(){const el=document.getElementById("ms");if(el)el.scrollTop=0}
+
+load();render();
 </script>
 </body>
 </html>
